@@ -1,8 +1,13 @@
 {
     "preset": "laravel",
-
+  
     "exclude": [
         "bootstrap/cache",
+        "bootstrap/app.php",
+        "bootstrap/providers.php",
+        "config",
+        "database/migrations",
+        "database/seeders",
         "storage"
     ],
     "notName": [
