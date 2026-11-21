@@ -22,7 +22,7 @@ class TicketPolicy
     {
         return $user->id === $ticket->user_id
         || $user->id === $ticket->assignee_id
-        || $user->role->canManageTickets();
+        || ($user->role?->canManageTickets() ?? false);
     }
 
     /**
@@ -38,12 +38,12 @@ class TicketPolicy
      */
     public function update(User $user, Ticket $ticket): bool
     {
-        return $user->role->canManageTickets() ?? false;
+        return $user->role?->canManageTickets() ?? false;
     }
 
     public function assign(User $user, Ticket $ticket): bool
     {
-        return $user->role->canManageTickets();
+        return $user->role?->canManageTickets() ?? false;
     }
 
     /**
