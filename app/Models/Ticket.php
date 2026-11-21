@@ -73,4 +73,21 @@ class Ticket extends Model
     {
         return $this->status->canTransactionTo($newStatus);
     }
+
+    public function transitionTo(TicketStatus $newStatus): void
+    {
+        $this->status->ensureCanTransitionTo($newStatus);
+        $this->status = $newStatus;
+    }
+
+    public function assignTo(User $assignee): void
+    {
+        $assignee->role->ensureCanBeAssignedTickets();
+        $this->assignee_id = $assignee->id;
+    }
+
+    public function unassign(): void
+    {
+        $this->assignee_id = null;
+    }
 }

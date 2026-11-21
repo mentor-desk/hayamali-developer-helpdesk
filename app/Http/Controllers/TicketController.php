@@ -37,7 +37,7 @@ class TicketController extends Controller
             }
         }
 
-        $ticket = $this->ticketService->updateTicket($request->validated(), $ticket);
+        $ticket = $this->ticketService->updateTicket($request->Validated(), $ticket);
 
         return response()->json([
             'message' => 'Ticket updated successfully.',

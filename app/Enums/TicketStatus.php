@@ -2,6 +2,8 @@
 
 namespace App\Enums;
 
+use DomainException;
+
 enum TicketStatus: string
 {
     case OPEN = 'open';
@@ -21,6 +23,19 @@ enum TicketStatus: string
 
     public function canTransactionTo(TicketStatus $action): bool
     {
-        return in_array($action, $this->allowedTransitions());
+        return in_array($action, $this->allowedTransitions(), true);
+    }
+
+    public function ensureCanTransitionTo(self $newStatus): void
+    {
+        if ($this === $newStatus) {
+            return;
+        }
+
+        if (! $this->canTransactionTo($newStatus)) {
+            throw new DomainException(
+                "Changing the ticket status from '{$this->value}' to '{$newStatus->value}' is not allowed."
+            );
+        }
     }
 }
