@@ -76,7 +76,7 @@ class Ticket extends Model
 
     public function transitionTo(TicketStatus $newStatus): void
     {
-        $this->status->ensureCanTransitionTo($newStatus);
+        $this->status->ensureCanTransactionTo($newStatus);
         $this->status = $newStatus;
     }
 

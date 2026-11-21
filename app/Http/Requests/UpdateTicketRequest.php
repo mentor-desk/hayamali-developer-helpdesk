@@ -42,22 +42,4 @@ class UpdateTicketRequest extends FormRequest
         ];
     }
 
-    // public function withValidator($validator): void
-    // {
-    //     $validator->after(function ($validator) {
-    //         if (! $this->has('status')) {
-    //             return;
-    //         }
-
-    //         $ticket = $this->route('ticket');
-    //         $newStatus = TicketStatus::tryFrom((string) $this->input('status'));
-
-    //         if ($newStatus && ! $ticket->canTransitionTo($newStatus)) {
-    //             $validator->errors()->add(
-    //                 'status',
-    //                 "Changing the ticket status from '{$ticket->status->value}' to '{$newStatus->value}' is not allowed."
-    //             );
-    //         }
-    //     });
-    // }
 }
