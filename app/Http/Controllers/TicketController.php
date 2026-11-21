@@ -28,10 +28,13 @@ class TicketController extends Controller
 
     public function update(UpdateTicketRequest $request, Ticket $ticket): JsonResponse
     {
-        $newStatus = $request->status();
+        // Check state transition if status is provided in the request
+        if ($request->has('status')) {
+            $newStatus = $request->status();
 
-        if (! $ticket->canTransitionTo($newStatus)) {
-            return response()->json(['message' => 'Invalid status transition.'], 422);
+            if (! $ticket->canTransitionTo($newStatus)) {
+                return response()->json(['message' => 'Invalid status transition.'], 422);
+            }
         }
 
         $ticket = $this->ticketService->updateTicket($request->Validated(), $ticket);
