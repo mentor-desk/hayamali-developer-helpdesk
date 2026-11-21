@@ -40,9 +40,4 @@ class UpdateTicketRequest extends FormRequest
             ],
         ];
     }
-
-    public function status(): TicketStatus
-    {
-        return TicketStatus::from($this->validated('status'));
-    }
 }
