@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use App\Enums\TicketStatus;
 use App\Enums\UserRole;
-use App\Models\Ticket;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -41,5 +40,4 @@ class UpdateTicketRequest extends FormRequest
             ],
         ];
     }
-
 }
