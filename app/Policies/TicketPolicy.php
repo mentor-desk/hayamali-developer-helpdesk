@@ -2,10 +2,8 @@
 
 namespace App\Policies;
 
-use App\Enums\UserRole;
 use App\Models\Ticket;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class TicketPolicy
 {
@@ -22,7 +20,9 @@ class TicketPolicy
      */
     public function view(User $user, Ticket $ticket): bool
     {
-        return $user->id === $ticket->user_id || $user->hasRole('admin');
+        return $user->id === $ticket->user_id
+        || $user->id === $ticket->assignee_id
+        || ($user->role?->canManageTickets() ?? false);
     }
 
     /**
@@ -38,7 +38,12 @@ class TicketPolicy
      */
     public function update(User $user, Ticket $ticket): bool
     {
-        return $user->role->canManageTickets();
+        return $user->role?->canManageTickets() ?? false;
+    }
+
+    public function assign(User $user, Ticket $ticket): bool
+    {
+        return $user->role?->canManageTickets() ?? false;
     }
 
     /**
